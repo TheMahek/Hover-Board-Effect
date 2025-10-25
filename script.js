@@ -15,11 +15,16 @@ for (let i = 0; i < SQUARES; i++) {
   const square = document.createElement("div");
   square.classList.add("square");
 
- square.addEventListener("mouseover", () => setColor(square));
-square.addEventListener("mouseout", () => removeColor(square));
-square.addEventListener("touchstart", () => setColor(square));
-square.addEventListener("touchend", () => removeColor(square));
+  // Desktop hover
+  square.addEventListener("mouseover", () => setColor(square));
+  square.addEventListener("mouseout", () => removeColor(square));
 
+  // Mobile touch
+  square.addEventListener("touchstart", (e) => {
+    e.preventDefault(); 
+    setColor(square);
+  });
+  square.addEventListener("touchend", () => removeColor(square));
 
   container.appendChild(square);
 }
@@ -27,12 +32,12 @@ square.addEventListener("touchend", () => removeColor(square));
 function setColor(element) {
   const color = getRandomColor();
   element.style.background = color;
-  element.style.boxShadow = ` 0 2px ${color}, 0 0 10px ${color}`;
+  element.style.boxShadow = `0 2px ${color}, 0 0 10px ${color}`;
 }
 
 function removeColor(element) {
   element.style.background = "#1d1d1d";
-  element.style.boxShadow = ` 0 0 2px #000`;
+  element.style.boxShadow = `0 0 2px #000`;
 }
 
 function getRandomColor() {
